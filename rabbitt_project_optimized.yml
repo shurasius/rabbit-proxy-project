@@ -66,9 +66,10 @@ Resources:
             Action: 
               - "s3:PutObject"
               - "s3:GetObject"
-              - "s3:ListBucket"
               - "cloudformation:CreateStack"
               - "cloudformation:UpdateStack"
+              - "ec2:*"
+              - "s3:ListBucket"
             Resource: "*"
       Roles:
         -
@@ -212,7 +213,7 @@ Resources:
           sudo mv rabbitmq.conf /etc/nginx/sites-available/
           sudo ln -s /etc/nginx/sites-available/rabbitmq.conf /etc/nginx/sites-enabled/
           cd /var/www/html/
-          sudo aws s3 cp s3://rabbit-project-storage/${BuildVersion} /var/www/html/
+          sudo aws s3 cp s3://rabbit-builds-storage/${BuildVersion} /var/www/html/
           sudo tar -xvf ${BuildVersion}
           sudo service nginx restart
   RabbitLaunchConfiguration:  

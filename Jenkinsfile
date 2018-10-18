@@ -1,19 +1,18 @@
 pipeline {
     agent { label 'ubuntu'} 
 
-    environment {
-        
-        BUILD_VERSION = '37'
+    environment {        
+        DEP_BUILD_VERSION = '37'
     }
 
     stages {
         stage('Build') {
             steps {
-                git 'https://github.com/shurasius/rabbit-proxy-project.git'
+                git 'https://github.com/shurasius/rabbit-builds-project.git'
                 sh 'tar -cf rabbit_artifact_${BUILD_NUMBER}.tar index.html images/'
                 script{
                     try {
-                        sh 'aws s3 cp rabbit_artifact_${BUILD_NUMBER}.tar s3://rabbit-project-storage/rabbit_artifact_${BUILD_NUMBER}.tar'  
+                        sh 'aws s3 cp rabbit_artifact_${BUILD_NUMBER}.tar s3://rabbit-builds-storage/rabbit_artifact_${BUILD_NUMBER}.tar'  
                     } catch (e) {
                         echo 'Something failed, I should sound the klaxons!' 
                     }
