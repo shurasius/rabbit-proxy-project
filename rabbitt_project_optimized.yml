@@ -258,4 +258,5 @@ Outputs:
   LoadBalancerDNS: 
     Description: The DNSName of the load balancer
     Value: !GetAtt NginxLoadBalancer.DNSName
-      
+    Export:
+      Name: "NginxDNS"
