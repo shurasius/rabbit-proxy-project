@@ -25,6 +25,7 @@ pipeline {
                   sh ''' export NGINXDNS=`aws cloudformation describe-stacks --stack-name rabbit-nginx-dev --query 'Stacks[0].Outputs[0].OutputValue' | cut -d'"' -f2`
                    echo $NGINXDNS 
                    if [[ `curl $NGINXDNS` && `curl $NGINXDNS/rabbit-mgmt` ]]; then exit 0; else exit 1; fi
+                '''
 
                 sh 'aws cloudformation delete-stack --region us-west-2  --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}'
 
@@ -38,6 +39,7 @@ pipeline {
                   sh ''' export NGINXDNS=`aws cloudformation describe-stacks --stack-name rabbit-nginx-dev --query 'Stacks[0].Outputs[0].OutputValue' | cut -d'"' -f2`
                    echo $NGINXDNS 
                    if [[ `curl $NGINXDNS` && `curl $NGINXDNS/rabbit-mgmt` ]]; then exit 0; else exit 1; fi
+                '''
 
                 sh 'aws cloudformation delete-stack --region us-west-2  --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}'
 
