@@ -24,7 +24,7 @@ pipeline {
                 sh "LBDNS=`aws cloudformation --region us-west-2 describe-stacks --stack-name RabbitProxyProject-v1-83 --query 'Stacks[0].Outputs[0].OutputValue' | sed 's/\\"//g'`"
                 sh 'curl $LBDNS'
 
-                aws cloudformation delete-stack --region us-west-2  --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}
+                sh 'aws cloudformation delete-stack --region us-west-2  --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}'
 
             }
         }
@@ -36,7 +36,7 @@ pipeline {
                 sh 'echo $LBDNS'
                 sh 'curl $LBDNS'
 
-                aws cloudformation delete-stack --region us-west-2  --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}
+                sh 'aws cloudformation delete-stack --region us-west-2  --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}'
 
             }
         }
