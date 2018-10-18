@@ -256,7 +256,7 @@ Resources:
         - Ref: "RabbitTargetGroup"
   Outputs:
     LoadBalancerDNSName: 
-        Description: The DNSName of the load balancer
-        Value: !GetAtt NginxLoadBalancer.DNSName
+      Description: The DNSName of the load balancer
+      Value: !GetAtt NginxLoadBalancer.DNSName
        
   
