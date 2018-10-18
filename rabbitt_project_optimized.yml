@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: RabbitMQ under a nginx proxy project and site
+Description: RabbitMQ under a nginx proxy project
 Parameters:
   BuildVersion:
     Description: Version of the deploying build
