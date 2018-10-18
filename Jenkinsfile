@@ -2,7 +2,7 @@ pipeline {
     agent { label 'ubuntu'} 
 
     environment {
-        BUILD_VERSION = '${BUILD_NUMBER}'
+        BUILD_VERSION = ${BUILD_NUMBER}
     }
 
     stages {
