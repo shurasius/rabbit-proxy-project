@@ -35,7 +35,7 @@ pipeline {
                 sh 'echo $LBDNS'
                 sh 'curl $LBDNS'
 
-
+                aws cloudformation delete-stack --region us-west-2  --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}
 
             }
         }
