@@ -64,18 +64,8 @@ Resources:
           -
             Effect: "Allow"
             Action: 
-              - "autoscaling:CreateLaunchConfiguration"
-              - "iam:CreateInstanceProfile"
               - "s3:PutObject"
               - "s3:GetObject"
-              - "cloudformation:CreateStack"
-              - "cloudformation:UpdateStack"
-              - "iam:CreateRole"
-              - "ec2:*"
-              - "s3:ListBucket"
-              - "iam:CreateUser"
-              - "autoscaling:CreateAutoScalingGroup"
-              - "elasticloadbalancingv2:*"
             Resource: "*"
       Roles:
         -
