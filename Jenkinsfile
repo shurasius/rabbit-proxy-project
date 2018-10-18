@@ -12,7 +12,7 @@ pipeline {
                 sh 'tar -cf rabbit_artifact_1.${BUILD_NUMBER}.tar index.html images/'
                 script{
                     try {
-                        sh 'aws s3 cp rabbit_artifact_1.${BUILD_NUMBER}.tar s3://rabbit-builds-storage/rabbit_artifact_${BUILD_NUMBER}.tar'  
+                        sh 'aws s3 cp rabbit_artifact_1.${BUILD_NUMBER}.tar s3://rabbit-builds-storage/rabbit_artifact_1.${BUILD_NUMBER}.tar'  
                     } catch (e) {
                         echo 'Something failed, I should sound the klaxons!' 
                     }
