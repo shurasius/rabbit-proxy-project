@@ -4,7 +4,7 @@ Parameters:
   BuildVersion:
     Description: Version of the deploying build
     Type: String
-    Default: rabbit_artifact_30.tar
+    Default: rabbit_artifact_35.tar
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: 'AWS::EC2::KeyPair::KeyName'
