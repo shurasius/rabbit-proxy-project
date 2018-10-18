@@ -212,7 +212,6 @@ Resources:
           sudo aws s3 cp s3://rabbit-builds-storage/${BuildVersion} /var/www/html/
           sudo tar -xvf ${BuildVersion}
           sudo service nginx restart
-          LBDNS=${NginxLoadBalancer.DNSName}
   RabbitLaunchConfiguration:  
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
