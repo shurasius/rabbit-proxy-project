@@ -75,7 +75,7 @@ Resources:
               - "s3:ListBucket"
               - "iam:CreateUser"
               - "autoscaling:CreateAutoScalingGroup"
-              - "elasticloadbalancing:*"
+              - "elasticloadbalancingv2:*"
             Resource: "*"
       Roles:
         -
