@@ -31,6 +31,7 @@ pipeline {
 
                 sh 'LBDNS=`aws cloudformation --region us-west-2 describe-stacks --stack-name RabbitProxyProject-v1-83 --query 'Stacks[0].Outputs[0].OutputValue' | sed 's/\"//g'`'
                 sh 'curl $LBDNS'
+                
             }
         }
     }
