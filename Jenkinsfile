@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                git 'https://github.com/shurasius/rabbit-builds-project.git'
+                git 'https://github.com/shurasius/rabbit-proxy-project.git'
                 sh 'tar -cf rabbit_artifact_${BUILD_NUMBER}.tar index.html images/'
                 script{
                     try {
