@@ -1,10 +1,6 @@
 pipeline {
     agent { label 'ubuntu'} 
 
-    environment {        
-        DEP_BUILD_VERSION = '37'
-    }
-
     stages {
         stage('Build') {
             steps {

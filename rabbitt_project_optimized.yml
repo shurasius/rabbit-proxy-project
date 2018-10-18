@@ -254,5 +254,9 @@ Resources:
       Cooldown: "60"
       TargetGroupARNs:
         - Ref: "RabbitTargetGroup"
+  Outputs:
+    LoadBalancerDNSName: 
+        Description: The DNSName of the load balancer
+        Value: !GetAtt NginxLoadBalancer.DNSName
        
   
