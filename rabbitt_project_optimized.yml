@@ -67,7 +67,7 @@ Resources:
               - "s3:PutObject"
               - "s3:GetObject"
               - "s3:ListBucket"
-              - "cloudformation:CreateStack",
+              - "cloudformation:CreateStack"
               - "cloudformation:UpdateStack"
             Resource: "*"
       Roles:
