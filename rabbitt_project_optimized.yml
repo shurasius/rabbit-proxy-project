@@ -1,6 +1,10 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: RabbitMQ under a nginx proxy project
 Parameters:
+  BuildVersion:
+    Description: Version of the deploying build
+    Type: String
+    Default: rabbit_artifact_30.tar
   KeyName:
     Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
     Type: 'AWS::EC2::KeyPair::KeyName'
@@ -62,6 +66,7 @@ Resources:
             Action: 
               - "s3:PutObject"
               - "s3:GetObject"
+              - "s3:ListBucket"
             Resource: "*"
       Roles:
         -
@@ -200,22 +205,13 @@ Resources:
           sudo apt-get update
           sudo apt-get upgrade -y
           sudo apt-get install nginx -y
-          sudo echo "server { listen 80;  server_name     ~^(.+)$;  root /var/www/html/;  location /static/ {   proxy_pass https://s3-us-west-2.amazonaws.com/shurasius-bucket/;  }}" > siteS3.conf
+          sudo apt-get install awscli -y
           sudo echo "upstream rabbitmq {server ${RabbitLoadBalancer.DNSName}:15672;} server {  listen  80;  server_name ~^(.+)$;  root /var/www/html; location /rabbit-mgmt/ {   proxy_pass      http://rabbitmq/;  }}" > rabbitmq.conf
-          sudo mv siteS3.conf /etc/nginx/sites-available/
           sudo mv rabbitmq.conf /etc/nginx/sites-available/
-          sudo ln -s /etc/nginx/sites-available/siteS3.conf /etc/nginx/sites-enabled/
           sudo ln -s /etc/nginx/sites-available/rabbitmq.conf /etc/nginx/sites-enabled/
           cd /var/www/html/
-          sudo echo "<h1> Tuleny mathafaka! </h1><img src="static/seal1.jpg" height="300" width="300"><img src="static/seal2.jpg"  height="300" width="300"><img src="static/seal3.jpg"  height="300" width="300">" > index.html
-          sudo mkdir static
-          cd static/ 
-          wget -O seal1 http://www.poznavayka.org/wp-content/uploads/2018/03/tyulen-2.jpg
-          wget -O seal2 http://st.pixanews.com/wp-content/uploads/2012/01/Holland8.jpg
-          wget -O seal3 https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTocYN6b17CNA_8ILAjho7h9fnKANmEOSXcel8TtEgTaKp57uVw
-          sudo apt install python-pip -y
-          pip install awscli --upgrade --user
-          aws s3 sync static/ s3://shurasius-bucket
+          sudo aws s3 cp s3://rabbit-project-storage/${BuildVersion} /var/www/html/
+          sudo tar -xvf ${BuildVersion}
           sudo service nginx restart
   RabbitLaunchConfiguration:  
     Type: AWS::AutoScaling::LaunchConfiguration
