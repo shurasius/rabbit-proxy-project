@@ -8,6 +8,12 @@ pipeline {
                 //script {
                 //    currentBuild.displayName = "RabbitProxyProject-v1-${Version}"
                 //}
+
+                script {
+                    if (env.Version == 'new') {
+                        env.Version=env.BUILD_NUMBER
+                    } 
+                }
                 
 
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
