@@ -7,10 +7,8 @@ pipeline {
         stage('Build') {
             steps {
 
-                environment {
-                    params.Version="${BUILD_NUMBER}"
-                }
-                
+                params.Version="${BUILD_NUMBER}"
+                                
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
                 sh 'sudo chmod 755 create-or-update-stack.sh'
                 sh 'tar -cf rabbit_artifact_1.${Version}.tar index.html images/'
