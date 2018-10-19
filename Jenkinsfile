@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'ubuntu' }
 
-     envronment { 
+     environment { 
 
         //BUILD_NUMBER = '132'
         currentBuild.description = "RabbitProxyProject-v1-${BUILD_NUMBER}"
