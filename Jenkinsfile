@@ -9,13 +9,10 @@ pipeline {
                 //    currentBuild.displayName = "RabbitProxyProject-v1-${Version}"
                 //}
 
-                script {
-                    if (env.Version == 'new') {
-                        env.Version=env.BUILD_NUMBER
-                    } 
-                }
+                if (params.Version == 'new') {
+                        params.Version=env.BUILD_NUMBER
+                } 
                 
-
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
                 sh 'sudo chmod 755 create-or-update-stack.sh'
                 sh 'tar -cf rabbit_artifact_1.${Version}.tar index.html images/'
