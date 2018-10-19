@@ -1,13 +1,17 @@
 pipeline {
     agent { label 'ubuntu' }
 
-    // envronment { BUILD_NUMBER = '132'}
+     envronment { 
+
+        BUILD_NUMBER = '132'
+        currentBuild.description = "RabbitProxyProject-v1-${BUILD_NUMBER}"
+    }
 
     stages {
         stage('Build') {
             steps {
 
-                currentBuild.description = "RabbitProxyProject-v1-${BUILD_NUMBER}"
+                
 
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
                 sh 'sudo chmod 755 create-or-update-stack.sh'
