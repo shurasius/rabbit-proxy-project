@@ -259,7 +259,7 @@ Resources:
         - Ref: "NginxTargetGroup"
       Tags:
         - Key: Name
-          Value: NginxServer
+          Value: !Join ['-', ['NginxServer', !Ref Environment]]
           PropagateAtLaunch: 'true'
   RabbitAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
@@ -276,7 +276,7 @@ Resources:
         - Ref: "RabbitTargetGroup"
       Tags:
         - Key: Name
-          Value: RabbitServer
+          Value: !Join ['-', ['RabbitServer', !Ref Environment]]
           PropagateAtLaunch: 'true'
 Outputs:
   LoadBalancerDNS: 
