@@ -260,6 +260,7 @@ Resources:
       Tags:
         - Key: Name
           Value: NginxServer
+          PropagateAtLaunch: 'true'
   RabbitAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
@@ -276,6 +277,7 @@ Resources:
       Tags:
         - Key: Name
           Value: RabbitServer
+          PropagateAtLaunch: 'true'
 Outputs:
   LoadBalancerDNS: 
     Description: The DNSName of the load balancer
