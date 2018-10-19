@@ -208,11 +208,8 @@ Resources:
           sudo apt-get upgrade -y
           sudo apt-get install nginx -y
           sudo apt-get install awscli -y
-          sudo echo "server { listen 80;  server_name     ~^(.+)$;  root /var/www/html/;  location /images/ {   proxy_pass https://s3-us-west-2.amazonaws.com/shurasius-bucket/;  }}" > siteS3.conf
-          sudo echo "upstream rabbitmq {server ${RabbitLoadBalancer.DNSName}:15672;} server {  listen  80;  server_name ~^(.+)$;  root /var/www/html; location /rabbit-mgmt/ {   proxy_pass      http://rabbitmq/;  }}" > rabbitmq.conf
-          sudo mv siteS3.conf /etc/nginx/sites-available/
+          sudo echo "upstream rabbitmq {server ${RabbitLoadBalancer.DNSName}:15672;} server {  listen  80;  server_name ~^(.+)$;  root /var/www/html; location /rabbit-mgmt/ {   proxy_pass      http://rabbitmq/;  }   location /images/ {   proxy_pass https://s3-us-west-2.amazonaws.com/shurasius-bucket/;  }}" > rabbitmq.conf
           sudo mv rabbitmq.conf /etc/nginx/sites-available/
-          sudo ln -s /etc/nginx/sites-available/siteS3.conf /etc/nginx/sites-enabled/
           sudo ln -s /etc/nginx/sites-available/rabbitmq.conf /etc/nginx/sites-enabled/
           cd /var/www/html/
           sudo aws s3 cp s3://rabbit-builds-storage/${BuildVersion} /var/www/html/
