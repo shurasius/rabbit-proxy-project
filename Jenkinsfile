@@ -1,6 +1,12 @@
 pipeline {
     agent { label 'ubuntu' }
 
+     envronment { 
+
+        //BUILD_NUMBER = '132'
+        currentBuild.description = "RabbitProxyProject-v1-${BUILD_NUMBER}"
+    }
+
     stages {
         stage('Build') {
             steps {
