@@ -3,12 +3,9 @@ pipeline {
 
     stages {
         stage('Build') {
-            if (params.Version == 'new') { params.Version = "${BUILD_NUMBER}" }
-
             steps {
 
-                
-                
+                echo "params.Version"
 
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
                 sh 'sudo chmod 755 create-or-update-stack.sh'
