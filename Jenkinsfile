@@ -2,9 +2,9 @@ pipeline {
     agent { label 'ubuntu' }
 
     environment {
-        VAR 1='1'
-        VAR 2='2'
-        VAR 3='3'
+        VAR1='1'
+        VAR2='2'
+        VAR3='3'
     }
 
     stages {
