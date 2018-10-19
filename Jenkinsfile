@@ -1,5 +1,7 @@
 pipeline {
-     agent { label 'ubuntu' }
+    agent { label 'ubuntu' }
+
+    // envronment { BUILD_NUMBER = '132'}
 
     stages {
         stage('Build') {
