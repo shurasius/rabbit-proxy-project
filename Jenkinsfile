@@ -22,6 +22,8 @@ pipeline {
             steps {
                 sh './create-or-update-stack.sh us-west-2 RabbitProxyProject-v1-${BUILD_NUMBER}-DEV --template-body file://rabbitt_project_optimized.yml --parameters ParameterKey=Environment,ParameterValue=DEV ParameterKey=BuildVersion,ParameterValue=rabbit_artifact_1.${BUILD_NUMBER}.tar  ParameterKey=KeyName,ParameterValue=oregon_pair_1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=SSHLocation,ParameterValue=0.0.0.0/0 ParameterKey=VPC,ParameterValue=vpc-8811e8f0 ParameterKey=Subnets,ParameterValue="subnet-2dd7f377\\,subnet-560a5f2f\\,subnet-f796e1bc" --capabilities CAPABILITY_NAMED_IAM'
 
+                sh 'sleep 30'
+
                 sh ''' export NGINXDNS=`aws cloudformation describe-stacks --region us-west-2 --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}-DEV --query 'Stacks[0].Outputs[0].OutputValue' | cut -d'"' -f2`
                        set +e
                        export CVAR=`curl $NGINXDNS` 
@@ -34,7 +36,9 @@ pipeline {
             steps {
                 sh './create-or-update-stack.sh us-west-2 RabbitProxyProject-v1-${BUILD_NUMBER}-PROD --template-body file://rabbitt_project_optimized.yml --parameters ParameterKey=Environment,ParameterValue=PROD ParameterKey=BuildVersion,ParameterValue=rabbit_artifact_1.${BUILD_NUMBER}.tar  ParameterKey=KeyName,ParameterValue=oregon_pair_1 ParameterKey=InstanceType,ParameterValue=t2.micro ParameterKey=SSHLocation,ParameterValue=0.0.0.0/0 ParameterKey=VPC,ParameterValue=vpc-8811e8f0 ParameterKey=Subnets,ParameterValue="subnet-2dd7f377\\,subnet-560a5f2f\\,subnet-f796e1bc" --capabilities CAPABILITY_NAMED_IAM'
 
-               sh ''' export NGINXDNS=`aws cloudformation describe-stacks --region us-west-2 --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}-PROD --query 'Stacks[0].Outputs[0].OutputValue' | cut -d'"' -f2`
+                sh 'sleep 30'
+
+                sh ''' export NGINXDNS=`aws cloudformation describe-stacks --region us-west-2 --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}-PROD --query 'Stacks[0].Outputs[0].OutputValue' | cut -d'"' -f2`
                         set +e
                         export CVAR=`curl $NGINXDNS` 
                         set -e 
