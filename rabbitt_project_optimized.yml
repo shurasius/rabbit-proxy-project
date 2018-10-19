@@ -208,7 +208,7 @@ Resources:
           sudo apt-get upgrade -y
           sudo apt-get install nginx -y
           sudo apt-get install awscli -y
-          sudo echo "upstream rabbitmq {server ${RabbitLoadBalancer.DNSName}:15672;} server {  listen  80;  server_name ~^(.+)$;  root /var/www/html; location /rabbit-mgmt/ {   proxy_pass      http://rabbitmq/;  }   location /images/ {   proxy_pass https://s3-us-west-2.amazonaws.com/shurasius-bucket/;  }}" > rabbitmq.conf
+          sudo echo "upstream rabbitmq {server ${RabbitLoadBalancer.DNSName}:15672;} server {  listen  80;  server_name ${NginxLoadBalancer.DNSName};  root /var/www/html; location /rabbit-mgmt/ {   proxy_pass      http://rabbitmq/;  }   location /images/ {   proxy_pass https://s3-us-west-2.amazonaws.com/shurasius-bucket/;  }}" > rabbitmq.conf
           sudo mv rabbitmq.conf /etc/nginx/sites-available/
           sudo ln -s /etc/nginx/sites-available/rabbitmq.conf /etc/nginx/sites-enabled/
           cd /var/www/html/
