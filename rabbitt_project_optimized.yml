@@ -228,7 +228,7 @@ Resources:
   RabbitLaunchConfiguration:  
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
-      LaunchConfigurationName: !Join ['-', ['NginxLC', !Ref Environment]]
+      LaunchConfigurationName: !Join ['-', ['RabbitLC', !Ref Environment]]
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: !Ref InstanceType
       SecurityGroups:
