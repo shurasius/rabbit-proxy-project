@@ -1,12 +1,6 @@
 pipeline {
     agent { label 'ubuntu' }
 
-    environment {
-        VAR1='1'
-        VAR2='2'
-        VAR3='3'
-    }
-
     stages {
         stage('Build') {
             steps {
