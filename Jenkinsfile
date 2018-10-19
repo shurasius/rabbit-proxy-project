@@ -5,10 +5,10 @@ pipeline {
         stage('Build') {
             steps {
 
-                //BUILD_NUMBER="132"
+                parameter Version = ${BUILD_NUMBER}
 
                 script {
-                    currentBuild.displayName = "RabbitProxyProject-v1-${BUILD_NUMBER}"
+                    currentBuild.displayName = "RabbitProxyProject-v1-${Version}"
                 }
                 
 
