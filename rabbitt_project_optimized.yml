@@ -1,6 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: RabbitMQ under a nginx proxy project!
 Parameters:
+  Environment:
+    Description: Enfironment of the deploying build (DEV, STAGE, PROD)
+    Type: String
   BuildVersion:
     Description: Version of the deploying build
     Type: String
@@ -57,7 +60,7 @@ Resources:
   S3RolePolicies:
     Type: "AWS::IAM::Policy"
     Properties: 
-      PolicyName: "S3Policy"
+      PolicyName: !Join ['-', ['S3Policy', !Ref Environment]]
       PolicyDocument:
         Version: "2012-10-17"
         Statement: 
