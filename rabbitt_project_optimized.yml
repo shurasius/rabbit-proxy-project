@@ -263,7 +263,7 @@ Resources:
   RabbitAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
-      AutoScalingGroupName: !Join ['-', ['NginxASG', !Ref Environment]]
+      AutoScalingGroupName: !Join ['-', ['RabbitASG', !Ref Environment]]
       AvailabilityZones: 
         Fn::GetAZs: ""
       MaxSize: "1"
