@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: RabbitMQ under a nginx proxy project!
+Description: RabbitMQ under a nginx proxy project
 Parameters:
   Environment:
     Description: Enfironment of the deploying build (DEV, STAGE, PROD)
