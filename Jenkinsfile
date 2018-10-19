@@ -26,7 +26,7 @@ pipeline {
 
                 sh ''' export NGINXDNS=`aws cloudformation describe-stacks --region us-west-2 --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}-DEV --query 'Stacks[0].Outputs[0].OutputValue' | cut -d'"' -f2`
                        set +e
-                       export CVAR=`curl $NGINXDNS` 
+                       export CVAR="`curl $NGINXDNS`" 
                        set -e
                        if [ -n "$CVAR" ]; then exit 0; else exit 1; fi
                 '''
@@ -40,7 +40,7 @@ pipeline {
 
                 sh ''' export NGINXDNS=`aws cloudformation describe-stacks --region us-west-2 --stack-name RabbitProxyProject-v1-${BUILD_NUMBER}-PROD --query 'Stacks[0].Outputs[0].OutputValue' | cut -d'"' -f2`
                         set +e
-                        export CVAR=`curl $NGINXDNS` 
+                        export CVAR="`curl $NGINXDNS`" 
                         set -e 
                         if [ -n "$CVAR" ]; then exit 0; else exit 1; fi
                 '''
