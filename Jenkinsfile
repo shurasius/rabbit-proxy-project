@@ -7,13 +7,9 @@ pipeline {
         stage('Build') {
             steps {
 
-                //script {
-                //    currentBuild.displayName = "RabbitProxyProject-v1-${Version}"
-                //}
-                if (params.Version == 'new') {
-                            params.Version=env.BUILD_NUMBER
-                }                    
-
+                environment {
+                    params.Version="${BUILD_NUMBER}"
+                }
                 
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
                 sh 'sudo chmod 755 create-or-update-stack.sh'
