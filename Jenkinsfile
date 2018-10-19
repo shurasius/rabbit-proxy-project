@@ -7,6 +7,8 @@ pipeline {
         stage('Build') {
             steps {
 
+                currentBuild.description = "RabbitProxyProject-v1-${BUILD_NUMBER}"
+
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
                 sh 'sudo chmod 755 create-or-update-stack.sh'
                 sh 'tar -cf rabbit_artifact_1.${BUILD_NUMBER}.tar index.html images/'
