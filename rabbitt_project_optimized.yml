@@ -83,6 +83,7 @@ Resources:
   NginxELBSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
+      GroupName: !Join ['-', ['NginxELBSG', !Ref Environment]]
       GroupDescription: Add port to Internet
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -92,6 +93,7 @@ Resources:
   NginxSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
+      GroupName: !Join ['-', ['NginxSG', !Ref Environment]]
       GroupDescription: Enable ssh and http
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -105,6 +107,7 @@ Resources:
   RabbitELBSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
+      GroupName: !Join ['-', ['RabbitELBSG', !Ref Environment]]
       GroupDescription: Enable ssh and nginx instances
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -114,6 +117,7 @@ Resources:
   RabbitSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
+      GroupName: !Join ['-', ['RabbitSG', !Ref Environment]]
       GroupDescription: Enable ssh and nginxSG
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -127,6 +131,7 @@ Resources:
   NginxLoadBalancer: 
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
+      Name: !Join ['-', ['NginxLB', !Ref Environment]]
       SecurityGroups: 
         - Fn::GetAtt: ['NginxELBSecurityGroup', 'GroupId']
       Subnets: !Ref Subnets
@@ -136,6 +141,7 @@ Resources:
   RabbitLoadBalancer: 
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
+      Name: !Join ['-', ['RabbitLB', !Ref Environment]]
       Scheme: internal
       SecurityGroups: 
         - Fn::GetAtt: ['RabbitELBSecurityGroup', 'GroupId']
@@ -146,6 +152,7 @@ Resources:
   NginxTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
+      Name: !Join ['-', ['NginxTG', !Ref Environment]]
       Protocol: HTTP
       Port: 80
       VpcId: !Ref VPC
@@ -159,6 +166,7 @@ Resources:
   RabbitTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
+      Name: !Join ['-', ['RabbitTG', !Ref Environment]]
       Protocol: HTTP
       Port: 15672
       VpcId: !Ref VPC
@@ -194,6 +202,7 @@ Resources:
   NginxLaunchConfiguration:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
+      LaunchConfigurationName: !Join ['-', ['NginxLC', !Ref Environment]]
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: !Ref InstanceType
       IamInstanceProfile:
@@ -219,6 +228,7 @@ Resources:
   RabbitLaunchConfiguration:  
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
+      LaunchConfigurationName: !Join ['-', ['NginxLC', !Ref Environment]]
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
       InstanceType: !Ref InstanceType
       SecurityGroups:
@@ -237,6 +247,7 @@ Resources:
   NginxAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
+      AutoScalingGroupName: !Join ['-', ['NginxASG', !Ref Environment]]
       AvailabilityZones: 
         Fn::GetAZs: ""
       MaxSize: "3"
@@ -246,9 +257,13 @@ Resources:
       Cooldown: "60"
       TargetGroupARNs:
         - Ref: "NginxTargetGroup"
+      Tags:
+        - Key: Name
+          Value: NginxServer
   RabbitAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
+      AutoScalingGroupName: !Join ['-', ['NginxASG', !Ref Environment]]
       AvailabilityZones: 
         Fn::GetAZs: ""
       MaxSize: "1"
@@ -258,6 +273,9 @@ Resources:
       Cooldown: "60"
       TargetGroupARNs:
         - Ref: "RabbitTargetGroup"
+      Tags:
+        - Key: Name
+          Value: RabbitServer
 Outputs:
   LoadBalancerDNS: 
     Description: The DNSName of the load balancer
