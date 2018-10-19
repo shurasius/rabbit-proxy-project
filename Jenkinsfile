@@ -1,11 +1,13 @@
 pipeline {
     agent { label 'ubuntu' }
 
+    environment {
+        BUILD_NUMBER=${Version}
+    }
+
     stages {
         stage('Build') {
             steps {
-
-                BUILD_NUMBER=${Version}
 
                 script {
                     currentBuild.displayName = "RabbitProxyProject-v1-${BUILD_NUMBER}"
