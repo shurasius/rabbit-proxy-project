@@ -4,7 +4,7 @@ pipeline {
      environment { 
 
         //BUILD_NUMBER = '132'
-        currentBuild.description = "RabbitProxyProject-v1-${BUILD_NUMBER}"
+        script { currentBuild.description = "RabbitProxyProject-v1-${BUILD_NUMBER}" }
     }
 
     stages {
