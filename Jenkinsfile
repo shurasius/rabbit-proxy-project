@@ -3,9 +3,11 @@ pipeline {
 
     stages {
         stage('Build') {
+            if (params.Version == 'new') { params.Version = "${BUILD_NUMBER}" }
+
             steps {
 
-                script { if (params.Version == 'new') { params.Version = "${BUILD_NUMBER}" } }
+                
                 
 
                 git 'https://github.com/shurasius/rabbit-proxy-project.git'
